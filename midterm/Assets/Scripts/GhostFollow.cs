@@ -16,8 +16,12 @@ public class GhostFollow : MonoBehaviour
     void Update()
     {
         GameObject player = GameObject.Find("Player");
+        Vector3 startVector = transform.position;
         this.transform.position= Vector3.MoveTowards(this.transform.position,player.transform.position,speed*Time.deltaTime);
-        
+        Vector3 endVector = transform.position;
+        this.transform.rotation = Quaternion.LookRotation((startVector-endVector), Vector3.back);
+        transform.Rotate(Vector3.right*-90);
+        transform.Rotate(Vector3.forward * 180);
     }
     void OnCollisionEnter(Collision collision)
     {

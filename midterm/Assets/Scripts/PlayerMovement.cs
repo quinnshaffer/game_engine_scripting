@@ -20,6 +20,12 @@ public class PlayerMovement : MonoBehaviour
 
         gameObject.transform.position = new Vector2(transform.position.x + (h * step),
            transform.position.y + (v * step));
-        if(Input.GetKeyDown("r")) Application.LoadLevel(Application.loadedLevel);
+        if (v != 0 || h != 0)
+        {
+            this.transform.rotation = Quaternion.LookRotation(new Vector2(h, v), Vector3.forward);
+            transform.Rotate(Vector3.up * 90);
+        }
+
+        if (Input.GetKeyDown("r")) Application.LoadLevel(Application.loadedLevel);
     }
 }
