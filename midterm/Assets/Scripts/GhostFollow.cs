@@ -9,7 +9,7 @@ public class GhostFollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        speed = Mathf.Pow((Random.value),2)*4+4;
     }
 
     // Update is called once per frame
@@ -41,5 +41,10 @@ public class GhostFollow : MonoBehaviour
             //If the GameObject has the same tag as specified, output this message in the console
             Application.LoadLevel(Application.loadedLevel);
         }
+    }
+    private void OnTriggerEnter(Collider other) {
+        if(other.gameObject.tag == "ghost"){ 
+        Destroy(other.gameObject);
+        Destroy(this); }
     }
 }
