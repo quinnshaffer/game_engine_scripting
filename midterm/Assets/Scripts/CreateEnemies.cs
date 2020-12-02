@@ -2,6 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public static class Globals
+{
+    public static int score;
+    public static void changeScore(int s) {
+        score += s;
+        Debug.Log("score: "+score/2);
+    }
+    public static void setScore(int s) {
+        score = s;
+    }
+}
 public class CreateEnemies : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -11,6 +22,7 @@ public class CreateEnemies : MonoBehaviour
     void Start()
     {
         level = 0;
+        Globals.score = 0;
     }
 
     // Update is called once per frame
@@ -19,14 +31,13 @@ public class CreateEnemies : MonoBehaviour
        
         getCount = GameObject.FindGameObjectsWithTag("ghost");
 
-        if (getCount.Length == 0) {
+        if (getCount.Length <= 1) {
             level++;
             for (int i = 0; i < level*2; i++)
             {
                 makeGhost();
             }
             makeObstacle();
-            
         }
         
         

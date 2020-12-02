@@ -27,5 +27,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (Input.GetKeyDown("r")) Application.LoadLevel(Application.loadedLevel);
+        
     }
 }

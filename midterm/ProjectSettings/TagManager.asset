@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ghost
   - player
+  - scoreboard
   layers:
   - Default
   - TransparentFX

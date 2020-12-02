@@ -1,0 +1,37 @@
+
+
+
+All problems with the exception of the LAST one (Motion) do not use ANY user input.
+
+Scene:CubeWalls 
+
+1. The Player bounces back and forth automatically between the two walls.
+There is no user input.
+See: CubeBounce.mp4
+
+Scene: Collisons
+
+1. The three balls collide and are destroyed. No user input.
+Each sphere is missing a critical component.
+See: Collision and Destroy.mpt
+
+
+2. The three balls collide and are repelled in the opposite direction.
+No user input. Like 1, Each sphere is missing a critical component.
+This is an advanced problem.
+See: Collision and Repell.mp4
+
+Scene: Gravity
+
+1. Gravity with increasing mass. The sphere gets increasingly heavier till it pushes the center tile down away allowing the sphere to fall downward.
+See: Gravity with increasing mass.mpt
+
+2. Gravity a sliding door. The center tile lowers slightly and moves away allowing the sphere to fall downward.
+See: Gravity and Sliding Door.mpt
+
+3. Rotating Base. This is an advanced problem. Rotate the TileFloor base around the sphere. The sphere does not move and the sphere has no gravity.
+
+
+Scene: Motion
+1. USES User input. Advanced problem.
+Move the cube anywhere on the plane as long as it maintains contact with the plane.  You cannot plug in numerical limits to solve this problem. You need to look at the Boundaries property of the Rigidbody property to solve this problem correctly. The Boundaries class has a method that is very useful that will determine if the Cube is touching the plane. Do not let the cube completely leave the plane.

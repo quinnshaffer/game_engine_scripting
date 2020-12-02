@@ -22,6 +22,8 @@ public class GhostFollow : MonoBehaviour
         this.transform.rotation = Quaternion.LookRotation((startVector-endVector), Vector3.back);
         transform.Rotate(Vector3.right*-90);
         transform.Rotate(Vector3.forward * 180);
+
+        
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -39,12 +41,16 @@ public class GhostFollow : MonoBehaviour
         if (collision.gameObject.tag == "player")
         {
             //If the GameObject has the same tag as specified, output this message in the console
+            Globals.setScore(0);
             Application.LoadLevel(Application.loadedLevel);
         }
     }
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag == "ghost"){ 
         Destroy(other.gameObject);
-        Destroy(this); }
+        Destroy(this);
+
+            Globals.changeScore(1);
+        }
     }
 }
