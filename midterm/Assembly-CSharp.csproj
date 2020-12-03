@@ -66,7 +66,8 @@
     <Compile Include="Assets\Scripts\CreateEnemies.cs" />
     <Compile Include="Assets\Scripts\GhostFollow.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
-    <Compile Include="Assets\Scripts\centerUI.cs" />
+    <Compile Include="Assets\Scripts\ghostWall.cs" />
+    <Compile Include="Assets\Scripts\updateHighscore.cs" />
     <Compile Include="Assets\Scripts\updateScore.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class updateScore : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -13,6 +13,7 @@ public class updateScore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.GetComponent<UnityEngine.UI.Text>().text = "Score : " + Globals.score;
+        
+        this.GetComponent<Text>().text = "Score:" + Globals.score;
     }
 }

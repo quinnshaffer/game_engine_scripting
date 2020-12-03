@@ -5,9 +5,15 @@ using UnityEngine;
 public static class Globals
 {
     public static int score;
+    public static int highScore;
     public static void changeScore(int s) {
         score += s;
-        Debug.Log("score: "+score/2);
+        if (score>highScore) {
+            highScore = score;
+            PlayerPrefs.SetInt("highscore", highScore);
+            PlayerPrefs.Save();
+        }
+        //Debug.Log("score: "+score/2);
     }
     public static void setScore(int s) {
         score = s;
@@ -33,9 +39,17 @@ public class CreateEnemies : MonoBehaviour
 
         if (getCount.Length <= 1) {
             level++;
-            for (int i = 0; i < level*2; i++)
+            for (int i = 0; i < level * 2; i++)
             {
-                makeGhost();
+               // Debug.Log("i:"+i);
+                if (i >= 4 && i % 2 == 1)
+                {
+                   
+                    if (Random.Range(0f, 1f) >= .8f) { 
+                        makeGhostwall(); 
+                    }
+                }
+                else makeGhost();
             }
             makeObstacle();
         }
@@ -61,4 +75,16 @@ public class CreateEnemies : MonoBehaviour
         GameObject obst = Instantiate(Resources.Load("obstacle"), loc,
            Quaternion.identity) as GameObject;
     }
+    void makeGhostwall()
+    {
+        Vector3 loc;
+        do
+        {
+            loc = new Vector3(Random.Range(23, -23), Random.Range(-10, 10), 1 / 3);
+        }
+        while (Vector3.Distance(loc, GameObject.Find("Player").transform.position) < 4);
+        GameObject obst = Instantiate(Resources.Load("ghostWall"), loc,
+           Quaternion.identity) as GameObject;
+    }
+    
 }
