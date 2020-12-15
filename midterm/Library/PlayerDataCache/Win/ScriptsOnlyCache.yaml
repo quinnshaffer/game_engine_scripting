@@ -4,7 +4,9 @@ ScriptsOnlyBuild:
     - CreateEnemies
     - GhostFollow
     - PlayerMovement
+    - audioControl
     - ghostWall
+    - powerUp
     - updateHighscore
     - updateScore
     Unity.2D.Animation.Editor.dll:
@@ -63,6 +65,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 108
@@ -74,34 +80,40 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11486}
     - Class: 114
-      Script: {instanceID: 11818}
+      Script: {instanceID: 11640}
     - Class: 114
-      Script: {instanceID: 12136}
+      Script: {instanceID: 11820}
     - Class: 114
-      Script: {instanceID: 12142}
+      Script: {instanceID: 12138}
     - Class: 114
-      Script: {instanceID: 12214}
+      Script: {instanceID: 12144}
     - Class: 114
-      Script: {instanceID: 12268}
+      Script: {instanceID: 12180}
     - Class: 114
-      Script: {instanceID: 12520}
+      Script: {instanceID: 12218}
     - Class: 114
-      Script: {instanceID: 12790}
+      Script: {instanceID: 12272}
     - Class: 114
-      Script: {instanceID: 13282}
+      Script: {instanceID: 12524}
     - Class: 114
-      Script: {instanceID: 13302}
+      Script: {instanceID: 12794}
     - Class: 114
-      Script: {instanceID: 13718}
+      Script: {instanceID: 13286}
     - Class: 114
-      Script: {instanceID: 14008}
+      Script: {instanceID: 13306}
     - Class: 114
-      Script: {instanceID: 14184}
+      Script: {instanceID: 13722}
     - Class: 114
-      Script: {instanceID: 14354}
+      Script: {instanceID: 14012}
+    - Class: 114
+      Script: {instanceID: 14188}
+    - Class: 114
+      Script: {instanceID: 14358}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
+      Script: {instanceID: 0}
+    - Class: 135
       Script: {instanceID: 0}
     - Class: 136
       Script: {instanceID: 0}
@@ -228,6 +240,12 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: powerUp
+  - hash:
+      serializedVersion: 2
       Hash: 7ab0e790220bdca831fdd886b339039d
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -348,6 +366,12 @@ ScriptsOnlyBuild:
     className: PlayerMovement
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: audioControl
+  - hash:
+      serializedVersion: 2
       Hash: e6f0efd0e20669d577e9d21526b3d3f9
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
@@ -456,7 +480,7 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
-      Hash: 3077e34aa2958f5ab56ac8d55051654a
+      Hash: b270ff536d6e4c4e70fe5a30b090f0ab
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CreateEnemies
