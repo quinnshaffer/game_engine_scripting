@@ -27,7 +27,8 @@ public class ghostWall : MonoBehaviour
         {
             //If the GameObject has the same tag as specified, output this message in the console
             Globals.setScore(0);
-            Application.LoadLevel(Application.loadedLevel);
+            StartCoroutine(ExecuteAfterTime(.4f));
+            audioControl.playPlayerDead();
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -45,5 +46,11 @@ public class ghostWall : MonoBehaviour
             //Debug.Log("hit ghost");
 
         }
+    }
+    IEnumerator ExecuteAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Application.LoadLevel(Application.loadedLevel);
+        // Code to execute after the delay
     }
 }

@@ -6,6 +6,7 @@ public static class Globals
 {
     public static int score;
     public static int highScore;
+    public static bool turned=true;
     public static void changeScore(int s) {
         score += s;
         if (score>highScore) {
@@ -18,6 +19,7 @@ public static class Globals
     public static void setScore(int s) {
         score = s;
     }
+    
 }
 public class CreateEnemies : MonoBehaviour
 {
@@ -49,7 +51,7 @@ public class CreateEnemies : MonoBehaviour
                         makeGhostwall(); 
                     }
                 }
-                else makeGhost();
+                else makeSuperGhost();
             }
             makeObstacle();
         }
@@ -64,6 +66,18 @@ public class CreateEnemies : MonoBehaviour
         while (Vector3.Distance(loc, GameObject.Find("Player").transform.position) < 10);
         GameObject ghost = Instantiate(Resources.Load("ghost"), loc,
             Quaternion.identity) as GameObject;
+    }
+    void makeSuperGhost()
+    {
+        Vector3 loc;
+        do
+        {
+            loc = new Vector3(Random.Range(25, -25), Random.Range(-12, 12), -1);
+        }
+        while (Vector3.Distance(loc, GameObject.Find("Player").transform.position) < 10);
+        GameObject ghost = Instantiate(Resources.Load("ghost"), loc,
+            Quaternion.identity) as GameObject;
+        ghost.GetComponent<GhostFollow>().isSuper = true;
     }
     void makeObstacle() {
         Vector3 loc;

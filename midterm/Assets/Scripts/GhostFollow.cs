@@ -57,7 +57,9 @@ public class GhostFollow : MonoBehaviour
         {
             //If the GameObject has the same tag as specified, output this message in the console
             Globals.setScore(0);
-            Application.LoadLevel(Application.loadedLevel);
+            audioControl.playPlayerDead();
+            GameObject.Destroy(collision.gameObject);
+            StartCoroutine(ExecuteAfterTime(.4f));
         }
     }
     private void OnTriggerEnter(Collider other) {
@@ -66,6 +68,7 @@ public class GhostFollow : MonoBehaviour
             isColliding = true;
             if (!isSuper)
             {
+                audioControl.playGhostKill();
                 //Destroy(other.gameObject);
                 Destroy(this.gameObject);
 
@@ -75,6 +78,7 @@ public class GhostFollow : MonoBehaviour
             else
             {
                 //Debug.Log("super");
+                audioControl.playGhostDown();
                 isSuper = false;
                 speed/=1.5f;
                 Globals.changeScore(1);
@@ -83,5 +87,11 @@ public class GhostFollow : MonoBehaviour
                 r.material.SetTexture("_EmissionMap", albedo);
             }
         }
+    }
+    IEnumerator ExecuteAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Application.LoadLevel(Application.loadedLevel);
+        // Code to execute after the delay
     }
 }
