@@ -4,6 +4,7 @@ ScriptsOnlyBuild:
     - CreateEnemies
     - GhostFollow
     - PlayerMovement
+    - SetCursor
     - audioControl
     - ghostWall
     - powerUp
@@ -109,6 +110,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14188}
     - Class: 114
       Script: {instanceID: 14358}
+    - Class: 114
+      Script: {instanceID: 33074}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -354,13 +357,13 @@ ScriptsOnlyBuild:
     className: Benchmark03
   - hash:
       serializedVersion: 2
-      Hash: 3156860c0f26d18ec019f3f2f01243de
+      Hash: 6491c543d1f4dc615563702ee66934ee
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GhostFollow
   - hash:
       serializedVersion: 2
-      Hash: afc5b93a7b192de2dcb3832fe35a5c7e
+      Hash: 066905b2bf2bcee5b1d010c616cda8d1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerMovement
@@ -862,6 +865,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 963038867df638a3a5378b57d1571390
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SetCursor
   platform: 5
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

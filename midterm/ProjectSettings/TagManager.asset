@@ -9,6 +9,7 @@ TagManager:
   - scoreboard
   - wall
   - powerUp
+  - flashLight
   layers:
   - Default
   - TransparentFX

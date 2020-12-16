@@ -7,6 +7,9 @@ public static class Globals
     public static int score;
     public static int highScore;
     public static Quaternion playerRotation;
+    public static bool lightOn;
+    public static float charge;
+    public static float percentCharge;
     public static void changeScore(int s)
     {
         score += s;
@@ -21,6 +24,12 @@ public static class Globals
     public static void setScore(int s)
     {
         score = s;
+    }
+    public static void setHighScore(int s)
+    {
+        highScore = s;
+        PlayerPrefs.SetInt("highscore", highScore);
+        PlayerPrefs.Save();
     }
 }
 public class CreateEnemies : MonoBehaviour
@@ -70,11 +79,11 @@ public class CreateEnemies : MonoBehaviour
             {
                 makePowerUp();
                 powerUpCount = 0;
-                powerUpTime = Random.Range(10f, 5f + 5f / level);
+                powerUpTime = Random.Range(15f, 10f + 5f / level);
             }
             else {
                 powerUpCount = 0;
-                powerUpTime = Random.Range(3f, 5f);
+                powerUpTime = Random.Range(10f, 15f);
             }
         }
 
@@ -84,24 +93,13 @@ public class CreateEnemies : MonoBehaviour
         Vector3 loc;
         do
         {
-            loc = new Vector3(Random.Range(23, -23), Random.Range(-12, 12), -1);
+            loc = new Vector3(Random.Range(20, -20), Random.Range(-12, 12), -1);
         }
-        while (Vector3.Distance(loc, GameObject.Find("Player").transform.position) < 10);
+        while (Vector3.Distance(loc, GameObject.Find("Player").transform.position) < 15);
         GameObject ghost = Instantiate(Resources.Load("ghost"), loc,
             Quaternion.identity) as GameObject;
     }
-    void makeSuperGhost()
-    {
-        Vector3 loc;
-        do
-        {
-            loc = new Vector3(Random.Range(23, -23), Random.Range(-12, 12), -1);
-        }
-        while (Vector3.Distance(loc, GameObject.Find("Player").transform.position) < 10);
-        GameObject ghost = Instantiate(Resources.Load("ghost"), loc,
-            Quaternion.identity) as GameObject;
-        ghost.GetComponent<GhostFollow>().isSuper = true;
-    }
+    
     void makePowerUp()
     {
         Vector3 loc;
@@ -118,7 +116,7 @@ public class CreateEnemies : MonoBehaviour
         Vector3 loc;
         do
         {
-            loc = new Vector3(Random.Range(23, -23), Random.Range(-13, 13), 1 / 3);
+            loc = new Vector3(Random.Range(20, -20), Random.Range(-13, 13), 1 / 3);
         }
         while (Vector3.Distance(loc, GameObject.Find("Player").transform.position) < 4);
         GameObject obst = Instantiate(Resources.Load("obstacle"), loc,
@@ -130,7 +128,7 @@ public class CreateEnemies : MonoBehaviour
         Vector3 loc;
         do
         {
-            loc = new Vector3(Random.Range(23, -23), Random.Range(-10, 10), 1 / 3);
+            loc = new Vector3(Random.Range(20, -20), Random.Range(-10, 10), 1 / 3);
         }
         while (Vector3.Distance(loc, GameObject.Find("Player").transform.position) < 4);
         GameObject obst = Instantiate(Resources.Load("ghostWall"), loc,
@@ -138,3 +136,4 @@ public class CreateEnemies : MonoBehaviour
     }
 
 }
+

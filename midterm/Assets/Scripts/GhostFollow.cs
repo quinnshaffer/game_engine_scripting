@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GhostFollow : MonoBehaviour
 {
-    public float speed;
+    public float speed,baseSpeed;
     public bool isSuper;
     public Texture albedo;
     public bool fade;
     public float trans, dis;
+    Vector3 playerPos;
     GameObject[] ghosts;
     float fov;
     Light li;
@@ -17,6 +19,7 @@ public class GhostFollow : MonoBehaviour
     public bool isColliding;
     public Quaternion playerRot;
     GameObject player;
+    Vector3 startVector;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,38 +27,27 @@ public class GhostFollow : MonoBehaviour
         li =gameObject.GetComponent<Light>();
         r = GetComponent<Renderer>();
         col = r.material.GetColor("_Color");
-        speed = Mathf.Pow((Random.value),2)*4+4;
-        //speed = .1f;
+        baseSpeed = Mathf.Pow((Random.value),2)*4f+4;
+        speed = baseSpeed;
         
         //check if special
         trans = 0;
         player = GameObject.Find("Player");
         if (ghosts.Length >= 4)
         {
-            if (Random.Range(0f, 1f) >= .8f)
-            {
-                isSuper = true;
-            }
-            else if(Random.Range(0f, 1f) >= .6f)
-            { 
-               fade = true; 
-            }
-            else
-            {
-                isSuper = false;
-                fade = false;
-            }
+            if (Random.Range(0f, 1f) >= .8f) isSuper = true;
+            else isSuper = false;
         }
         
         //set up materials
         if (isSuper)
         {
-            speed *= 1.5f;
+            baseSpeed *= 1.5f;
             albedo = Resources.Load("superghostface") as Texture;
             
             r.material.SetTexture("_MainTex", albedo);
             r.material.SetTexture("_EmissionMap", albedo);
-            Debug.Log(r.material.GetTexture("_EmissionMap"));
+            //Debug.Log(r.material.GetTexture("_EmissionMap"));
             li.color = new Vector4(.6f,.6f,1f);
         }
         else
@@ -64,41 +56,54 @@ public class GhostFollow : MonoBehaviour
             r.material.SetTexture("_MainTex", albedo);
             r.material.SetTexture("_EmissionMap", albedo);
         }
-
+        fade = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 startVector = transform.position;
-        this.transform.position= Vector3.MoveTowards(this.transform.position,player.transform.position,speed*Time.deltaTime);
-        Vector3 endVector = transform.position;
-        this.transform.rotation = Quaternion.LookRotation((startVector-endVector), Vector3.back);
-        transform.Rotate(Vector3.right*-90);
-        transform.Rotate(Vector3.forward * 180);
-        isColliding = false;
-        fov = Quaternion.Angle(transform.rotation, Globals.playerRotation);
-        if (fade)
+        speed = baseSpeed;
+        startVector = transform.position;
+        if (player != null)
         {
-            trans = (Mathf.Sin(Time.time)+1)/2;
-            //trans = 1f/Mathf.Pow(Vector3.Distance(gameObject.transform.position, GameObject.Find("Player").transform.position),1f)-.5f;
-            dis = Vector3.Distance(gameObject.transform.position, GameObject.Find("Player").transform.position);
-            //trans =1f/Vector3.Distance(gameObject.transform.position, GameObject.Find("Player").transform.position)-1f;
-            //1.26f - .28f * dis + .015f*Mathf.Pow(dis, 2)
-            trans = 1.1f - .28f * dis + .015f*Mathf.Pow(dis, 2);
-            if (fov < 100)
+            fov = Quaternion.Angle(transform.rotation, Globals.playerRotation);
+            if (fade)
             {
-                trans *= 10;
-                trans += .5f;
+
+                dis = Vector3.Distance(gameObject.transform.position, playerPos) / 1.5f;
+                if (dis < 8) trans = 1.26f - .28f * dis + .015f * Mathf.Pow(dis, 2);
+                else trans = 0;
+                //Debug.Log(trans + ", " + fov);
+                if (fov < 100&&Globals.lightOn)
+                {
+                    trans += .2f;
+                    fov = 100 - fov;
+                    trans *= fov / 2;
+                    trans *= Globals.percentCharge;
+                    speed = baseSpeed-baseSpeed*(Globals.percentCharge/2);
+                    //trans += .5f;
+
+                }
+                else trans -= .15f;
+                //Debug.Log(trans + ", " + fov);
+                trans = Mathf.Min(trans, 1f);
+                trans += Mathf.Sin(Time.time * speed/5f) / 5f;
+                col.a = trans;
+                r.material.SetColor("_Color", col);
+                li.intensity = Mathf.Min(trans * .8f + .2f, 1f);
+                
+
             }
-            trans = Mathf.Min(trans, 1f);
-            trans +=Mathf.Sin(Time.time)/5;
-            col.a = trans;
-            r.material.SetColor("_Color", col);
-            li.intensity = Mathf.Min(trans * .8f + .2f, 1f);
+            playerPos = player.transform.position;
+            this.transform.position = Vector3.MoveTowards(this.transform.position, playerPos, speed * Time.deltaTime);
+            Vector3 endVector = transform.position;
+            this.transform.rotation = Quaternion.LookRotation((startVector - endVector), Vector3.back);
+            transform.Rotate(Vector3.right * -90);
+            transform.Rotate(Vector3.forward * 180);
+            isColliding = false;
         }
         
-        //Debug.Log(fov);
+        
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -134,7 +139,7 @@ public class GhostFollow : MonoBehaviour
                 //Debug.Log("super");
                 audioControl.playGhostDown();
                 isSuper = false;
-                speed/=1.5f;
+                baseSpeed/=1.5f;
                 Globals.changeScore(1);
                 albedo = Resources.Load("ghostface") as Texture;
                 r.material.SetTexture("_MainTex", albedo);
@@ -146,7 +151,7 @@ public class GhostFollow : MonoBehaviour
     IEnumerator ExecuteAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
-        Application.LoadLevel(Application.loadedLevel);
+        Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
         // Code to execute after the delay
     }
 }

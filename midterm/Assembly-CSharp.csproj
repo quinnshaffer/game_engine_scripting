@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\CreateEnemies.cs" />
     <Compile Include="Assets\Scripts\GhostFollow.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\SetCursor.cs" />
     <Compile Include="Assets\Scripts\audioControl.cs" />
     <Compile Include="Assets\Scripts\ghostWall.cs" />
     <Compile Include="Assets\Scripts\powerUp.cs" />

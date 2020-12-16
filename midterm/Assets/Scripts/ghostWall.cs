@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class ghostWall : MonoBehaviour
@@ -50,7 +51,7 @@ public class ghostWall : MonoBehaviour
     IEnumerator ExecuteAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
-        Application.LoadLevel(Application.loadedLevel);
+        Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
         // Code to execute after the delay
     }
 }
